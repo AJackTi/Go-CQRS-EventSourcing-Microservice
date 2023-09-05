@@ -19,6 +19,18 @@ local:
 	@echo Starting local docker compose
 	docker-compose -f docker-compose.local.yaml up -d --build
 
+down_local:
+	@echo Clearing kafka data
+	rm -rf ./es-data01
+	@echo Clearing kafka data
+	rm -rf ./kafka_data
+	@echo Clearing zookeeper data
+	rm -rf ./zookeeper
+	@echo Clearing prometheus data
+	rm -rf ./prometheus
+	@echo Starting local docker compose
+	docker-compose -f docker-compose.local.yaml down
+
 develop:
 	@echo Clearing kafka data
 	rm -rf ./es-data01
@@ -31,6 +43,17 @@ develop:
 	@echo Starting local docker compose
 	docker-compose -f docker-compose.yaml up -d --build
 
+down_develop:
+	@echo Clearing kafka data
+	rm -rf ./es-data01
+	@echo Clearing kafka data
+	rm -rf ./kafka_data
+	@echo Clearing zookeeper data
+	rm -rf ./zookeeper
+	@echo Clearing prometheus data
+	rm -rf ./prometheus
+	@echo Starting local docker compose
+	docker-compose -f docker-compose.yaml down
 
 # ==============================================================================
 # Docker support
