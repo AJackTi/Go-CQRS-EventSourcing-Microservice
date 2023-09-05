@@ -2,6 +2,11 @@ package app
 
 import (
 	"context"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/config"
 	v1 "github.com/AleksK1NG/go-cqrs-eventsourcing/internal/bankAccount/delivery/http/v1"
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/internal/bankAccount/delivery/kafka/elasticsearch_subscription"
@@ -30,10 +35,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/segmentio/kafka-go"
 	"go.mongodb.org/mongo-driver/mongo"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 const (
@@ -89,9 +90,9 @@ func (a *app) Run() error {
 	}
 	defer a.pgxConn.Close()
 
-	if err := a.runMigrate(); err != nil {
-		return err
-	}
+	// if err := a.runMigrate(); err != nil {
+	// 	return err
+	// }
 
 	// connect mongo
 	mongoDBConn, err := mongodb.NewMongoDBConn(ctx, a.cfg.Mongo)

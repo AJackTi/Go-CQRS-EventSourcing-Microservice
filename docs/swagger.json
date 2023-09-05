@@ -1,0 +1,420 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/": {
+            "post": {
+                "description": "Create new bank account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BankAccount"
+                ],
+                "summary": "Create bank account",
+                "parameters": [
+                    {
+                        "description": "create bank account",
+                        "name": "createBankAccount",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.CreateBankAccountCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/deposit/{id}": {
+            "put": {
+                "description": "Deposit balance account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BankAccount"
+                ],
+                "summary": "Deposit balance account",
+                "parameters": [
+                    {
+                        "description": "deposit balance account",
+                        "name": "depositBalance",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.DepositBalanceCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/email/{id}": {
+            "put": {
+                "description": "change email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ChangeEmail"
+                ],
+                "summary": "change email",
+                "parameters": [
+                    {
+                        "description": "change email",
+                        "name": "changeEmail",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.ChangeEmailCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/search": {
+            "get": {
+                "description": "Search bank account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search bank account",
+                "parameters": [
+                    {
+                        "description": "search bank account",
+                        "name": "Search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.SearchBankAccountsQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpSearchResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/withdraw/{id}": {
+            "put": {
+                "description": "Withdraw balance account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WithdrawBalance"
+                ],
+                "summary": "Withdraw balance account",
+                "parameters": [
+                    {
+                        "description": "withdraw balance account",
+                        "name": "withdrawBalance",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.WithdrawBalanceCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/{id}": {
+            "get": {
+                "description": "Get Account By ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetByID"
+                ],
+                "summary": "Get Account By ID",
+                "parameters": [
+                    {
+                        "description": "get account by id",
+                        "name": "getAccountByID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.GetBankAccountByIDQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpBankAccountResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.ChangeEmailCommand": {
+            "type": "object",
+            "required": [
+                "aggregateID",
+                "newEmail"
+            ],
+            "properties": {
+                "aggregateID": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "newEmail": {
+                    "type": "string",
+                    "minLength": 0
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.CreateBankAccountCommand": {
+            "type": "object",
+            "required": [
+                "address",
+                "email",
+                "firstName",
+                "id",
+                "lastName"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "balance": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "email": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "firstName": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "id": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "lastName": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.DepositBalanceCommand": {
+            "type": "object",
+            "required": [
+                "aggregateID",
+                "amount",
+                "paymentID"
+            ],
+            "properties": {
+                "aggregateID": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "amount": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "paymentID": {
+                    "type": "string",
+                    "minLength": 0
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.WithdrawBalanceCommand": {
+            "type": "object",
+            "required": [
+                "aggregateID",
+                "amount",
+                "paymentID"
+            ],
+            "properties": {
+                "aggregateID": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "amount": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "paymentID": {
+                    "type": "string",
+                    "minLength": 0
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_domain.Balance": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpBankAccountResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "aggregateID": {
+                    "type": "string"
+                },
+                "balance": {
+                    "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_domain.Balance"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpSearchResponse": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpBankAccountResponse"
+                    }
+                },
+                "paginationResponse": {
+                    "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.PaginationResponse"
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.GetBankAccountByIDQuery": {
+            "type": "object",
+            "required": [
+                "aggregateID"
+            ],
+            "properties": {
+                "aggregateID": {
+                    "type": "string",
+                    "minLength": 0
+                },
+                "fromEventStore": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.SearchBankAccountsQuery": {
+            "type": "object",
+            "required": [
+                "queryTerm"
+            ],
+            "properties": {
+                "pagination": {
+                    "$ref": "#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.Pagination"
+                },
+                "queryTerm": {
+                    "type": "string",
+                    "minLength": 0
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.Pagination": {
+            "type": "object",
+            "properties": {
+                "orderBy": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.PaginationResponse": {
+            "type": "object",
+            "properties": {
+                "hasMore": {
+                    "type": "boolean"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

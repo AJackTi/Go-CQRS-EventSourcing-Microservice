@@ -140,3 +140,10 @@ migrate_up:
 
 migrate_down:
 	migrate -database postgres://postgres:postgres@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=$(SSL_MODE) -path migrations down 1
+
+# ==============================================================================
+# Swagger
+
+swagger:
+	@echo Starting swagger generating
+	swag init --parseDependency --parseInternal -g **/**/*.go

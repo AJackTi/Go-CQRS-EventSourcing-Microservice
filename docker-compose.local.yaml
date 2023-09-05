@@ -17,25 +17,25 @@ services:
     command: -p 5432
     volumes:
       - ./microservices_pgdata:/var/lib/postgresql/data
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   zookeeper:
-    image: 'bitnami/zookeeper:3.8.0'
+    image: "bitnami/zookeeper:3.8.0"
     ports:
-      - '2181:2181'
+      - "2181:2181"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     volumes:
       - "./zookeeper:/zookeeper"
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   kafka:
-    image: 'bitnami/kafka:3.2.0'
+    image: "bitnami/kafka:3.2.0"
     ports:
       - "9092:9092"
       - "9093:9093"
-    volumes:
-      - "./kafka_data:/bitnami"
+    # volumes:
+    #   - "./kafka_data:/bitnami"
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
@@ -48,7 +48,7 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   mongodb:
     image: mongo:latest
@@ -61,7 +61,7 @@ services:
       - "27017:27017"
     volumes:
       - ./mongodb_data_container:/data/db
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   jaeger:
     container_name: jaeger_container
@@ -78,7 +78,7 @@ services:
       - "14268:14268"
       - "14250:14250"
       - "9411:9411"
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   node01:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.2.3
@@ -95,12 +95,12 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - ./es-data01:/usr/share/elasticsearch/data
+    # volumes:
+    #   - ./es-data01:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.2.3
@@ -111,7 +111,7 @@ services:
       - "5601:5601"
     depends_on:
       - node01
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   prometheus:
     image: prom/prometheus:latest
@@ -122,23 +122,23 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    networks: [ "microservices" ]
+    networks: ["microservices"]
 
   node_exporter:
     container_name: node_exporter_container
     restart: always
     image: prom/node-exporter
     ports:
-      - '9101:9100'
-    networks: [ "microservices" ]
+      - "9101:9100"
+    networks: ["microservices"]
 
   grafana:
     container_name: grafana_container
     restart: always
     image: grafana/grafana
     ports:
-      - '3005:3000'
-    networks: [ "microservices" ]
+      - "3005:3000"
+    networks: ["microservices"]
 
 volumes:
   mongodb_data_container:

@@ -1,0 +1,279 @@
+definitions:
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.ChangeEmailCommand:
+    properties:
+      aggregateID:
+        minLength: 0
+        type: string
+      newEmail:
+        minLength: 0
+        type: string
+    required:
+    - aggregateID
+    - newEmail
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.CreateBankAccountCommand:
+    properties:
+      address:
+        minLength: 0
+        type: string
+      balance:
+        minimum: 0
+        type: integer
+      email:
+        minLength: 0
+        type: string
+      firstName:
+        minLength: 0
+        type: string
+      id:
+        minLength: 0
+        type: string
+      lastName:
+        minLength: 0
+        type: string
+      status:
+        type: string
+    required:
+    - address
+    - email
+    - firstName
+    - id
+    - lastName
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.DepositBalanceCommand:
+    properties:
+      aggregateID:
+        minLength: 0
+        type: string
+      amount:
+        minimum: 0
+        type: integer
+      paymentID:
+        minLength: 0
+        type: string
+    required:
+    - aggregateID
+    - amount
+    - paymentID
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.WithdrawBalanceCommand:
+    properties:
+      aggregateID:
+        minLength: 0
+        type: string
+      amount:
+        minimum: 0
+        type: integer
+      paymentID:
+        minLength: 0
+        type: string
+    required:
+    - aggregateID
+    - amount
+    - paymentID
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_domain.Balance:
+    properties:
+      amount:
+        type: number
+      currency:
+        type: string
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpBankAccountResponse:
+    properties:
+      address:
+        type: string
+      aggregateID:
+        type: string
+      balance:
+        $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_domain.Balance'
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      status:
+        type: string
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpSearchResponse:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpBankAccountResponse'
+        type: array
+      paginationResponse:
+        $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.PaginationResponse'
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.GetBankAccountByIDQuery:
+    properties:
+      aggregateID:
+        minLength: 0
+        type: string
+      fromEventStore:
+        type: boolean
+    required:
+    - aggregateID
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.SearchBankAccountsQuery:
+    properties:
+      pagination:
+        $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.Pagination'
+      queryTerm:
+        minLength: 0
+        type: string
+    required:
+    - queryTerm
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.Pagination:
+    properties:
+      orderBy:
+        type: string
+      page:
+        type: integer
+      size:
+        type: integer
+    type: object
+  github_com_AleksK1NG_go-cqrs-eventsourcing_pkg_utils.PaginationResponse:
+    properties:
+      hasMore:
+        type: boolean
+      page:
+        type: integer
+      size:
+        type: integer
+      totalCount:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /:
+    post:
+      consumes:
+      - application/json
+      description: Create new bank account
+      parameters:
+      - description: create bank account
+        in: body
+        name: createBankAccount
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.CreateBankAccountCommand'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      summary: Create bank account
+      tags:
+      - BankAccount
+  /{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get Account By ID
+      parameters:
+      - description: get account by id
+        in: body
+        name: getAccountByID
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.GetBankAccountByIDQuery'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpBankAccountResponse'
+      summary: Get Account By ID
+      tags:
+      - GetByID
+  /deposit/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Deposit balance account
+      parameters:
+      - description: deposit balance account
+        in: body
+        name: depositBalance
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.DepositBalanceCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Deposit balance account
+      tags:
+      - BankAccount
+  /email/{id}:
+    put:
+      consumes:
+      - application/json
+      description: change email
+      parameters:
+      - description: change email
+        in: body
+        name: changeEmail
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.ChangeEmailCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: change email
+      tags:
+      - ChangeEmail
+  /search:
+    get:
+      consumes:
+      - application/json
+      description: Search bank account
+      parameters:
+      - description: search bank account
+        in: body
+        name: Search
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_queries.SearchBankAccountsQuery'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_dto.HttpSearchResponse'
+      summary: Search bank account
+      tags:
+      - Search
+  /withdraw/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Withdraw balance account
+      parameters:
+      - description: withdraw balance account
+        in: body
+        name: withdrawBalance
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AleksK1NG_go-cqrs-eventsourcing_internal_bankAccount_commands.WithdrawBalanceCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Withdraw balance account
+      tags:
+      - WithdrawBalance
+swagger: "2.0"

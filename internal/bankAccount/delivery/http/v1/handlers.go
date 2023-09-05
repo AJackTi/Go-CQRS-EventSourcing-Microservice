@@ -1,8 +1,12 @@
 package v1
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/config"
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/internal/bankAccount/commands"
+	_ "github.com/AleksK1NG/go-cqrs-eventsourcing/internal/bankAccount/dto"
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/internal/bankAccount/queries"
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/internal/bankAccount/service"
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/internal/mappers"
@@ -16,8 +20,6 @@ import (
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
 	uuid "github.com/satori/go.uuid"
-	"net/http"
-	"strconv"
 )
 
 type bankAccountHandlers struct {
@@ -50,6 +52,15 @@ func NewBankAccountHandlers(
 	}
 }
 
+// CreateBankAccount
+// @Tags BankAccount
+// @Summary Create bank account
+// @Description Create new bank account
+// @Param createBankAccount body commands.CreateBankAccountCommand true "create bank account"
+// @Accept json
+// @Produce json
+// @Success 201 {string} id ""
+// @Router / [post]
 func (h *bankAccountHandlers) CreateBankAccount() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.CreateBankAccount")
@@ -80,6 +91,15 @@ func (h *bankAccountHandlers) CreateBankAccount() echo.HandlerFunc {
 	}
 }
 
+// DepositBalance
+// @Tags BankAccount
+// @Summary Deposit balance account
+// @Description Deposit balance account
+// @Param depositBalance body commands.DepositBalanceCommand true "deposit balance account"
+// @Accept json
+// @Produce json
+// @Success 200
+// @Router /deposit/{id} [put]
 func (h *bankAccountHandlers) DepositBalance() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.DepositBalance")
@@ -109,6 +129,15 @@ func (h *bankAccountHandlers) DepositBalance() echo.HandlerFunc {
 	}
 }
 
+// WithdrawBalance
+// @Tags WithdrawBalance
+// @Summary Withdraw balance account
+// @Description Withdraw balance account
+// @Param withdrawBalance body commands.WithdrawBalanceCommand true "withdraw balance account"
+// @Accept json
+// @Produce json
+// @Success 200
+// @Router /withdraw/{id} [put]
 func (h *bankAccountHandlers) WithdrawBalance() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.WithdrawBalance")
@@ -138,6 +167,15 @@ func (h *bankAccountHandlers) WithdrawBalance() echo.HandlerFunc {
 	}
 }
 
+// ChangeEmail
+// @Tags ChangeEmail
+// @Summary change email
+// @Description change email
+// @Param changeEmail body commands.ChangeEmailCommand true "change email"
+// @Accept json
+// @Produce json
+// @Success 200
+// @Router /email/{id} [put]
 func (h *bankAccountHandlers) ChangeEmail() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.WithdrawBalance")
@@ -167,6 +205,15 @@ func (h *bankAccountHandlers) ChangeEmail() echo.HandlerFunc {
 	}
 }
 
+// GetByID
+// @Tags GetByID
+// @Summary Get Account By ID
+// @Description Get Account By ID
+// @Param getAccountByID body queries.GetBankAccountByIDQuery true "get account by id"
+// @Accept json
+// @Produce json
+// @Success 200 {object} dto.HttpBankAccountResponse
+// @Router /{id} [get]
 func (h *bankAccountHandlers) GetByID() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.GetByID")
@@ -207,6 +254,15 @@ func (h *bankAccountHandlers) GetByID() echo.HandlerFunc {
 	}
 }
 
+// Search
+// @Tags Search
+// @Summary Search bank account
+// @Description Search bank account
+// @Param Search body queries.SearchBankAccountsQuery true "search bank account"
+// @Accept json
+// @Produce json
+// @Success 200 {object} dto.HttpSearchResponse
+// @Router /search [get]
 func (h *bankAccountHandlers) Search() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.Search")
