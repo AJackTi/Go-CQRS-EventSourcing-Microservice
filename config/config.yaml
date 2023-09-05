@@ -8,7 +8,7 @@ http:
   basePath: /api/v1
   bankAccountsPath: /api/v1/accounts
   debugErrorsResponse: true
-  ignoreLogUrls: [ "metrics", "swagger" ]
+  ignoreLogUrls: ["metrics", "swagger"]
 probes:
   readinessPath: /ready
   livenessPath: /live
@@ -29,7 +29,7 @@ postgres:
   dbName: bank_accounts
   sslMode: false
 kafka:
-  brokers: [ "localhost:9093" ]
+  brokers: ["localhost:9093"]
   groupID: bank_account_microservice_consumer
   initTopics: true
 kafkaTopics:
@@ -65,8 +65,8 @@ kafkaPublisherConfig:
   partitions: 10
   replicationFactor: 1
 projections:
-  mongoGroup: 'mongoGroup'
-  elasticGroup: 'elasticGroup'
+  mongoGroup: "mongoGroup"
+  elasticGroup: "elasticGroup"
   mongoSubscriptionPoolSize: 10
   elasticSubscriptionPoolSize: 10
 elasticSearch:
@@ -80,5 +80,5 @@ elasticIndexes:
 migrations:
   enable: true
   recreate: false
-  sourceURL: "file://migrations"
+  sourceURL: "file://../migrations"
   dbURL: "postgres://postgres:postgres@localhost:5432/bank_accounts?sslmode=disable"

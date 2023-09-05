@@ -90,9 +90,9 @@ func (a *app) Run() error {
 	}
 	defer a.pgxConn.Close()
 
-	// if err := a.runMigrate(); err != nil {
-	// 	return err
-	// }
+	if err := a.runMigrate(); err != nil {
+		return err
+	}
 
 	// connect mongo
 	mongoDBConn, err := mongodb.NewMongoDBConn(ctx, a.cfg.Mongo)

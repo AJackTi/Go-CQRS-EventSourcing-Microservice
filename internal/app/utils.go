@@ -2,10 +2,11 @@ package app
 
 import (
 	"fmt"
-	"github.com/AleksK1NG/go-cqrs-eventsourcing/config"
-	"github.com/AleksK1NG/go-cqrs-eventsourcing/pkg/migrations"
 	"strings"
 	"time"
+
+	"github.com/AleksK1NG/go-cqrs-eventsourcing/config"
+	"github.com/AleksK1NG/go-cqrs-eventsourcing/pkg/migrations"
 
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -47,7 +48,6 @@ func GetMicroserviceName(cfg config.Config) string {
 }
 
 func (a *app) runMigrate() error {
-
 	a.log.Infof("Run migrations with config: %+v", a.cfg.MigrationsConfig)
 
 	version, dirty, err := migrations.RunMigrations(a.cfg.MigrationsConfig)
