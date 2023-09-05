@@ -4,8 +4,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/AleksK1NG/go-cqrs-eventsourcing/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 const (
@@ -28,13 +30,13 @@ func (a *app) runHttpServer() error {
 }
 
 func (a *app) mapRoutes() {
-	// docs.SwaggerInfo_swagger.Version = "1.0"
-	// docs.SwaggerInfo_swagger.Title = "EventSourcing Microservice"
-	// docs.SwaggerInfo_swagger.Description = "EventSourcing CQRS Microservice."
-	// docs.SwaggerInfo_swagger.Version = "1.0"
-	// docs.SwaggerInfo_swagger.BasePath = "/api/v1"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Title = "EventSourcing CQRS Microservice"
+	docs.SwaggerInfo.Description = "EventSourcing CQRS Microservice."
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.BasePath = "/api/v1"
 
-	// a.echo.GET("/swagger/*", echoSwagger.WrapHandler)
+	a.echo.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	a.echo.Use(a.middlewareManager.RequestLoggerMiddleware)
 	a.echo.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{

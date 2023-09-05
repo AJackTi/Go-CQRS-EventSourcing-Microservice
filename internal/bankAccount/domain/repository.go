@@ -2,6 +2,7 @@ package domain
 
 import (
 	"context"
+
 	"github.com/AleksK1NG/go-cqrs-eventsourcing/pkg/esclient"
 )
 
