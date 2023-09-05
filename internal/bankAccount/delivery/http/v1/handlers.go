@@ -60,7 +60,7 @@ func NewBankAccountHandlers(
 // @Accept json
 // @Produce json
 // @Success 201 {string} id ""
-// @Router / [post]
+// @Router /accounts [post]
 func (h *bankAccountHandlers) CreateBankAccount() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.CreateBankAccount")
@@ -99,7 +99,7 @@ func (h *bankAccountHandlers) CreateBankAccount() echo.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Success 200
-// @Router /deposit/{id} [put]
+// @Router /accounts/deposit/{id} [put]
 func (h *bankAccountHandlers) DepositBalance() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.DepositBalance")
@@ -137,7 +137,7 @@ func (h *bankAccountHandlers) DepositBalance() echo.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Success 200
-// @Router /withdraw/{id} [put]
+// @Router /accounts/withdraw/{id} [put]
 func (h *bankAccountHandlers) WithdrawBalance() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.WithdrawBalance")
@@ -175,7 +175,7 @@ func (h *bankAccountHandlers) WithdrawBalance() echo.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Success 200
-// @Router /email/{id} [put]
+// @Router /accounts/email/{id} [put]
 func (h *bankAccountHandlers) ChangeEmail() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.WithdrawBalance")
@@ -213,7 +213,7 @@ func (h *bankAccountHandlers) ChangeEmail() echo.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Success 200 {object} dto.HttpBankAccountResponse
-// @Router /{id} [get]
+// @Router /accounts/{id} [get]
 func (h *bankAccountHandlers) GetByID() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.GetByID")
@@ -262,7 +262,7 @@ func (h *bankAccountHandlers) GetByID() echo.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Success 200 {object} dto.HttpSearchResponse
-// @Router /search [get]
+// @Router /accounts/search [get]
 func (h *bankAccountHandlers) Search() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		ctx, span := tracing.StartHttpServerTracerSpan(c, "bankAccountHandlers.Search")
