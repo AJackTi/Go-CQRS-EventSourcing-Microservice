@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
+        "/accounts": {
             "post": {
                 "description": "Create new bank account",
                 "consumes": [
@@ -49,7 +49,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/deposit/{id}": {
+        "/accounts/deposit/{id}": {
             "put": {
                 "description": "Deposit balance account",
                 "consumes": [
@@ -80,7 +80,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/email/{id}": {
+        "/accounts/email/{id}": {
             "put": {
                 "description": "change email",
                 "consumes": [
@@ -111,7 +111,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/search": {
+        "/accounts/search": {
             "get": {
                 "description": "Search bank account",
                 "consumes": [
@@ -145,7 +145,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/withdraw/{id}": {
+        "/accounts/withdraw/{id}": {
             "put": {
                 "description": "Withdraw balance account",
                 "consumes": [
@@ -176,7 +176,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/{id}": {
+        "/accounts/{id}": {
             "get": {
                 "description": "Get Account By ID",
                 "consumes": [

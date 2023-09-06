@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/": {
+        "/accounts": {
             "post": {
                 "description": "Create new bank account",
                 "consumes": [
@@ -38,7 +38,7 @@
                 }
             }
         },
-        "/deposit/{id}": {
+        "/accounts/deposit/{id}": {
             "put": {
                 "description": "Deposit balance account",
                 "consumes": [
@@ -69,7 +69,7 @@
                 }
             }
         },
-        "/email/{id}": {
+        "/accounts/email/{id}": {
             "put": {
                 "description": "change email",
                 "consumes": [
@@ -100,7 +100,7 @@
                 }
             }
         },
-        "/search": {
+        "/accounts/search": {
             "get": {
                 "description": "Search bank account",
                 "consumes": [
@@ -134,7 +134,7 @@
                 }
             }
         },
-        "/withdraw/{id}": {
+        "/accounts/withdraw/{id}": {
             "put": {
                 "description": "Withdraw balance account",
                 "consumes": [
@@ -165,7 +165,7 @@
                 }
             }
         },
-        "/{id}": {
+        "/accounts/{id}": {
             "get": {
                 "description": "Get Account By ID",
                 "consumes": [

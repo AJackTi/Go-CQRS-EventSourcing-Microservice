@@ -150,7 +150,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /:
+  /accounts:
     post:
       consumes:
       - application/json
@@ -172,7 +172,7 @@ paths:
       summary: Create bank account
       tags:
       - BankAccount
-  /{id}:
+  /accounts/{id}:
     get:
       consumes:
       - application/json
@@ -194,7 +194,7 @@ paths:
       summary: Get Account By ID
       tags:
       - GetByID
-  /deposit/{id}:
+  /accounts/deposit/{id}:
     put:
       consumes:
       - application/json
@@ -214,7 +214,7 @@ paths:
       summary: Deposit balance account
       tags:
       - BankAccount
-  /email/{id}:
+  /accounts/email/{id}:
     put:
       consumes:
       - application/json
@@ -234,7 +234,7 @@ paths:
       summary: change email
       tags:
       - ChangeEmail
-  /search:
+  /accounts/search:
     get:
       consumes:
       - application/json
@@ -256,7 +256,7 @@ paths:
       summary: Search bank account
       tags:
       - Search
-  /withdraw/{id}:
+  /accounts/withdraw/{id}:
     put:
       consumes:
       - application/json
